@@ -1,0 +1,5 @@
+# update cache
+
+- name: Update Cache
+  sudo: yes
+  apt: update_cache=yes

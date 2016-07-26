@@ -1,0 +1,91 @@
+# installing
+
+- name: Install Nginx
+  sudo: yes
+  apt: name=nginx
+
+- name: Install Nginx Extras
+  sudo: yes
+  apt: name=nginx-extras
+
+# stopping service
+
+- name: Stop Nginx
+  sudo: yes
+  service: name=nginx state=stopped
+
+# copy common configs
+
+- name: Creating common directory
+  file: path=/etc/nginx/common state=directory
+
+- name: Configure Nginx (cache)
+  sudo: yes
+  template: 
+    src: ../templates/common/cache
+    dest: /etc/nginx/common/cache
+
+- name: Configure Nginx (php-fpm)
+  sudo: yes
+  template: 
+    src: ../templates/common/php-fpm
+    dest: /etc/nginx/common/php-fpm
+
+- name: Configure Nginx (security)
+  sudo: yes
+  template: 
+    src: ../templates/common/security
+    dest: /etc/nginx/common/security
+
+- name: Configure Nginx (ssl)
+  sudo: yes
+  template: 
+    src: ../templates/common/ssl
+    dest: /etc/nginx/common/ssl
+
+- name: Configure Nginx (upstream)
+  sudo: yes
+  template: 
+    src: ../templates/common/upstream
+    dest: /etc/nginx/common/upstream
+
+# copy ssl certificates
+
+- name: Configure Nginx (laravel.l_nginx.crt)
+  sudo: yes
+  template: 
+    src: ../templates/sites-available/laravel.l_nginx.crt
+    dest: /etc/nginx/sites-available/laravel.l_nginx.crt
+
+- name: Configure Nginx (laravel.l_nginx.key)
+  sudo: yes
+  template: 
+    src: ../templates/sites-available/laravel.l_nginx.key
+    dest: /etc/nginx/sites-available/laravel.l_nginx.key
+
+- name: Configure Nginx (laravel.l_nginx.key to system path)
+  sudo: yes
+  template: 
+    src: ../templates/sites-available/laravel.l_nginx.key
+    dest: /etc/ssl/private/laravel.l_nginx.key
+
+- file: path=/etc/ssl/private/laravel.l_nginx.key owner=www-data group=www-data mode=0400
+
+- name: Configure Nginx (laravel.l_nginx.crt)
+  sudo: yes
+  template: 
+    src: ../templates/sites-available/laravel.l_nginx.crt
+    dest: /etc/ssl/certs/laravel.l_nginx.crt
+
+# copy project configs
+
+- name: Configure Nginx (laravel.l)
+  sudo: yes
+  template: 
+    src: ../templates/sites-available/laravel.l
+    dest: /etc/nginx/sites-available/laravel.l
+
+- name: Create Symlink for laravel.l
+  sudo: yes
+  file: src=/etc/nginx/sites-available/laravel.l dest=/etc/nginx/sites-enabled/laravel.l state=link
+

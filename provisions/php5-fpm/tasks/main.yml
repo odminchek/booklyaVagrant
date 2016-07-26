@@ -1,0 +1,53 @@
+# installing packages
+
+- name: Install php5-cli
+  sudo: yes
+  apt: name=php5-cli
+
+- name: Install php5-common
+  sudo: yes
+  apt: name=php5-common
+
+- name: Install php5-mysql
+  sudo: yes
+  apt: name=php5-mysql
+
+- name: Install php5-gd
+  sudo: yes
+  apt: name=php5-gd
+
+- name: Install php5-cgi
+  sudo: yes
+  apt: name=php5-cgi
+
+- name: Install php5-fpm
+  sudo: yes
+  apt: name=php5-fpm
+
+- name: Install php-pear
+  sudo: yes
+  apt: name=php-pear
+
+- name: Install php5-mcrypt
+  sudo: yes
+  apt: name=php5-mcrypt
+
+# stopping service
+
+- name: Stop PHP-FPM
+  sudo: yes
+  service: name=php5-fpm state=stopped
+
+# copy configs
+
+- name: Copy config file (php.ini)
+  sudo: yes
+  template: 
+    src: ../templates/php.ini
+    dest: /etc/php5/fpm/php.ini
+
+- name: Copy config file (www.conf)
+  sudo: yes
+  template: 
+    src: ../templates/pool.d/www.conf
+    dest: /etc/php5/fpm/pool.d/www.conf

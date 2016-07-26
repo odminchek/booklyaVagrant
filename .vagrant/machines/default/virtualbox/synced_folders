@@ -1,0 +1,1 @@
+{"virtualbox":{"/var/www/laravel/blog":{"guestpath":"/var/www/laravel/blog","hostpath":"/var/www/laravel/blog","disabled":false,"__vagrantfile":true},"/vagrant":{"guestpath":"/vagrant","hostpath":"/home/odminchek/vagrant/ubuntu-test","disabled":false,"__vagrantfile":true}}}

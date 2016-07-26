@@ -1,0 +1,11 @@
+# start service PHP-FPM
+
+- name: Start PHP-FPM
+  sudo: yes
+  service: name=php5-fpm state=started
+
+ # starting service nginx
+
+- name: Start Nginx
+  sudo: yes
+  service: name=nginx state=started

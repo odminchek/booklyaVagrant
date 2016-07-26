@@ -1,0 +1,16 @@
+---
+
+- hosts: main
+  sudo: yes
+  vars_files:
+    - vars/main.yml
+
+  roles:
+    # start
+    - { role: starting }
+    # installing and configuring nginx
+    - { role: nginx }
+    # installing and configuring php5-fpm
+    - { role: php5-fpm }
+    # end
+    - { role: ending }
